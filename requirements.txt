@@ -1,0 +1,9 @@
+flask-migrate
+flask-restx
+flask-sqlalchemy
+numpy
+opencv-python
+psycopg2-binary
+pytesseract
+python-dotenv
+
