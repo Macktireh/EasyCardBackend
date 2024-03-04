@@ -16,9 +16,11 @@ opencv-python = "^4.9.0.80"
 psycopg2-binary = "^2.9.9"
 pytesseract = "^0.3.10"
 python-dotenv = "^1.0.1"
+flask-injector = "^0.15.0"
 
 
 [tool.poetry.group.dev.dependencies]
+flask-admin = "^1.6.1"
 ruff = "^0.3.0"
 
 [build-system]

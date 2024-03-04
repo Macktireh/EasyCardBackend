@@ -5,8 +5,11 @@
 run:
 	poetry run flask run --host=localhost
 
+i:
+	poetry run flask db init
+
 m:
-	poetry run python flask db migrate
+	poetry run flask db migrate
 
 u:
 	poetry run flask db upgrade

@@ -1,3 +1,5 @@
+flask-admin
+Flask-Injector
 flask-migrate
 flask-restx
 flask-sqlalchemy
