@@ -1,11 +1,12 @@
-from flask_restx import Namespace, fields
+from flask_restx import Namespace, fields, reqparse
+from werkzeug.datastructures import FileStorage
 
 
 class CardSchema:
     api = Namespace("Card", description="card related operations")
 
-    createCard = api.model(
-        name="createCard",
+    cardIn = api.model(
+        name="cardIn",
         model={
             "code": fields.String(
                 required=True, description="secret code", max_length=12, min_length=12, example="123456789123"
@@ -32,3 +33,6 @@ class CardSchema:
             "updatedAt": fields.DateTime(description="date of the card update", readonly=True),
         },
     )
+
+    imageParser = reqparse.RequestParser()
+    imageParser.add_argument("image", type=FileStorage, location="files", required=True, help="image field is required")

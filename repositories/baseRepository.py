@@ -99,18 +99,6 @@ class BaseRepository:
         """
         return self.filter(id=id)
 
-    def getByPublicId(self, publicId: str) -> Model | None:
-        """
-        Retrieve an instance of type `Model` from the database using the provided public ID.
-
-        Args:
-            publicId (str): The public ID of the instance to retrieve.
-
-        Returns:
-            Model | None: The instance of type `Model` if found, or `None` if not found.
-        """
-        return self.filter(publicId=publicId)
-
     def getOrCreate(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Tuple[Model, bool]:
         """
         Get or create a new instance of the model.
