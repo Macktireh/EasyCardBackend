@@ -5,18 +5,15 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+from utils.functions import getEnvVar
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 load = load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
-
-
-def getEnvVar(varName: str, default: str | None = None, required: bool = True) -> str | None:
-    value = os.environ.get(varName, default)
-    if required and not value:
-        raise Exception(f"Environment variable {varName} is required")
-    return value
+PATH_TESSERACT_CMD = getEnvVar("PATH_TESSERACT_CMD", required=False)
+ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 
 
 class GlobalConfig:
