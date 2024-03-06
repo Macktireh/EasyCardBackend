@@ -1,9 +1,11 @@
 from flask import Flask
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
 from config.settings import STATIC_DIR, TEMPLATE_DIR, ConfigName, configByName
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
 
 def createApp(configName: ConfigName) -> Flask:
@@ -12,6 +14,7 @@ def createApp(configName: ConfigName) -> Flask:
         app.config.from_object(configByName[configName])
     except KeyError as e:
         raise Exception("Unknown configuration") from e
-    db.init_app(app)
 
+    db.init_app(app)
+    bcrypt.init_app(app)
     return app
