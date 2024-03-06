@@ -1,35 +1,30 @@
-import os
+from abc import ABC, abstractmethod
 from typing import List
 
-import cv2
-import pytesseract
 
-from config.settings import PATH_TESSERACT_CMD
-
-if os.name == "nt":
-    if not PATH_TESSERACT_CMD:
-        raise Exception("Add path environment variable TESSERACT_CMD")
-    pytesseract.pytesseract.tesseract_cmd = PATH_TESSERACT_CMD
-
-
-class CardNumberExtractorService:
+class CardNumberExtractorService(ABC):
+    @abstractmethod
     def imageToText(self, image) -> str | None:
-        try:
-            gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-            _, threshed = cv2.threshold(gray, 127, 255, cv2.THRESH_TRUNC)
-            return pytesseract.image_to_string(threshed, lang="eng", config="--psm 6")
-        except Exception as e:
-            print(str(e) + " Add path environment variable TESSERACT_CMD")
-            return None
+        """
+        A method to convert an image to text and return the result as a string, or None if conversion fails.
 
+        Args:
+            image (np.ndarray): The image to convert.
+
+        Returns:
+            str | None: The converted text, or None if conversion fails.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
     def getCardNumbers(self, image) -> List[str | None]:
-        listCardNumber = []
-        texts = self.imageToText(image).split()
-        for text in texts:
-            if len(text) == 12 and text.isdigit():
-                listCardNumber.append(text)
-            elif len(text) > 12:
-                for i in text.split(' '):
-                    if len(i) == 12 and i.isdigit():
-                        listCardNumber.append(i)
-        return listCardNumber
+        """
+        A description of the entire function, its parameters, and its return types.
+
+        Args:
+            image (np.ndarray): The image to extract card numbers from.
+
+        Returns:
+            List[str | None]: A list of card numbers extracted from the image.
+        """
+        raise NotImplementedError
