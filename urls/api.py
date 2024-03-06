@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_restx import Api
 
+from controllers.authController import api as authApi
 from controllers.cardController import api as cardApi
 
 router = Blueprint("api", __name__, url_prefix="/api")
@@ -15,4 +16,5 @@ api = Api(
     terms_url="https://www.google.com",
 )
 
+api.add_namespace(authApi, path="/auth")
 api.add_namespace(cardApi, path="/cards")
