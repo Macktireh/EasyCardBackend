@@ -1,7 +1,7 @@
-from datetime import datetime
 from enum import Enum
 
 from config.app import db
+from models import BaseModel
 
 
 class TypeEnum(str, Enum):
@@ -12,12 +12,19 @@ class TypeEnum(str, Enum):
     CARD_10000 = "10000"
 
 
-class Card(db.Model):
+class Card(BaseModel):
     __tablename__ = "cards"
 
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     code = db.Column(db.String(12), unique=True, nullable=False)
     type = db.Column(db.Enum(TypeEnum), nullable=False)
     isValid = db.Column(db.Boolean, default=True, nullable=False)
-    createdAt = db.Column(db.DateTime, nullable=False, default=datetime.now)
-    updatedAt = db.Column(db.DateTime, nullable=False, default=datetime.now, onupdate=datetime.now)
+
+    def toDict(self):
+        return {
+            "id": self.id,
+            "code": self.code,
+            "type": self.type,
+            "isValid": self.isValid,
+            "createdAt": self.createdAt,
+            "updatedAt": self.updatedAt,
+        }
