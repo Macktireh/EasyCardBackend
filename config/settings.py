@@ -14,6 +14,7 @@ TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
 PATH_TESSERACT_CMD = getEnvVar("PATH_TESSERACT_CMD", required=False)
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
+API_TOKEN_EXPIRES = 60 * 60 * 24 * 7
 
 
 class GlobalConfig:
@@ -21,6 +22,7 @@ class GlobalConfig:
     FLASK_DEBUG = False
     FLASK_ENV = getEnvVar("FLASK_ENV", "development")
     SECRET_KEY = getEnvVar("SECRET_KEY", secrets.token_hex(32))
+    SECURITY_PASSWORD_SALT = getEnvVar("SECURITY_PASSWORD_SALT", secrets.token_hex(32))
     SQLALCHEMY_ECHO = False
 
     TYPE_DATABASE = getEnvVar("TYPE_DATABASE", "sqlite")

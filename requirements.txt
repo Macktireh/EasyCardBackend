@@ -1,4 +1,5 @@
 flask-admin
+Flask-Bcrypt
 Flask-Injector
 flask-migrate
 flask-restx
