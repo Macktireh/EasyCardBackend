@@ -6,28 +6,29 @@ from flask_admin.contrib.sqla import ModelView
 class CardAdmin(ModelView):
     column_list: List[str] = [
         "id",
+        "publicId",
         "code",
-        "type",
+        "cardType",
         "isValid",
         "createdAt",
         "updatedAt",
     ]
     column_hide_backrefs = False
     column_searchable_list: List[str] = ["code"]
-    column_filters: List[str] = ["type", "isValid"]
+    column_filters: List[str] = ["cardType", "isValid"]
     column_sortable_list: List[str] = ["id", "createdAt", "updatedAt"]
     column_editable_list: List[str] = [
         "code",
-        "type",
+        "cardType",
         "isValid",
     ]
     form_create_rules: List[str] = [
         "code",
-        "type",
+        "cardType",
         "isValid",
     ]
 
-    form_excluded_columns = ["id", "createdAt", "updatedAt"]
+    form_excluded_columns = ["id", "publicId", "createdAt", "updatedAt"]
 
     create_modal: bool = True
     edit_modal: bool = True
