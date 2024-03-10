@@ -30,13 +30,13 @@ class CardService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getCardById(self, id: int) -> Card:
+    def getCard(self, publicId: str) -> Card:
         raise NotImplementedError
 
     @abstractmethod
-    def updateCard(self, id: int, payload: CardIn) -> Card:
+    def updateCard(self, publicId: str, payload: CardIn) -> Card:
         raise NotImplementedError
 
     @abstractmethod
-    def deleteCard(self, id: int) -> None:
+    def deleteCard(self, publicId: str) -> None:
         raise NotImplementedError
