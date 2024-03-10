@@ -3,7 +3,7 @@ from flask_injector import FlaskInjector
 from flask_migrate import Migrate
 
 from admin import registerAdmin
-from commands import createsuperuser, postman
+from commands import createsuperuser, gcards, postman, test
 from config.app import createApp, db
 from config.provider import configure
 from config.settings import ConfigName
@@ -28,6 +28,8 @@ def index() -> str:
 
 
 app.cli.add_command(createsuperuser)
+app.cli.add_command(gcards)
 app.cli.add_command(postman)
+app.cli.add_command(test)
 
 FlaskInjector(app=app, modules=[configure])
