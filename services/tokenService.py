@@ -33,7 +33,7 @@ class TokenService:
             payload = cls.getPayload(token)
             if not payload:
                 raise Exception
-            user = userRepository.getById(payload["id"])
+            user = userRepository.getByPublicId(payload["publicId"])
             if payload["isActive"] == user.isActive:
                 return user
         except Exception:

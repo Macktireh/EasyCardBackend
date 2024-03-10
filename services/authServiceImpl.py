@@ -29,19 +29,20 @@ class AuthServiceImpl(AuthService):
         AuthValidator.validateLoginRaise(**data)
 
         if not (user := self.authenticate(**data)):
-            raise exceptions.Unauthorized("Invalid email address or password")
+            raise exceptions.Unauthorized("Email or password is incorrect")
 
         if not user.isActive:
-            raise exceptions.Unauthorized("Your account is not active")
+            raise exceptions.Unauthorized("Your account is not active. Please contact your administrator.")
 
-        apiKey = TokenService.generate(TokenPayload(id=user.id, isActive=user.isActive))
+        apiKey = TokenService.generate(TokenPayload(publicId=user.publicId, isActive=user.isActive))
 
         return dict(message="You have logged in successfully.", apiKey=apiKey)
 
     def generateApiKey(self, apiKey: str) -> Dict[str, str]:
-        payload = TokenService.getPayload(apiKey)
-        user = self.userRepository.getById(payload["id"])
-        apiKey = TokenService.generate(TokenPayload(id=user.id, isActive=user.isActive))
+        user = TokenService.verify(apiKey)
+        if not user:
+            raise exceptions.Unauthorized("Invalid API Key")
+        apiKey = TokenService.generate(TokenPayload(publicId=user.publicId, isActive=user.isActive))
         return dict(apiKey=apiKey)
 
     def verifyApiKey(self, apiKey: str) -> dict[str, str]:
@@ -51,7 +52,7 @@ class AuthServiceImpl(AuthService):
         return dict(message="API Key is valid")
 
     def authenticate(self, email: str, password: str) -> User | None:
-        user = self.userRepository.getByEmail(email)
+        user = self.userRepository.filter(email=email)
         if user and user.checkPassword(password):
             return user
         return None
