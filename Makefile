@@ -1,4 +1,4 @@
-.PHONY: run m u mu sm shell postman test superuser rufffix ruffformat ruff clean
+.PHONY: run m u mu sm shell gcards postman test superuser rufffix ruffformat ruff clean
 
 .DEFAULT_GOAL := run
 
@@ -17,12 +17,18 @@ u:
 # migrate + upgrade
 mu: m u
 
+# upgrade + generate data
+ug: u gcards
+
 # showmigrations
 sm:
 	poetry run flask db show
 
 shell:
 	poetry run flask shell
+
+gcards:
+	poetry run flask gcards
 
 postman:
 	poetry run flask postman --export=True
@@ -41,19 +47,8 @@ test: testc coverage
 superuser:
 	poetry run flask createsuperuser
 
-trans-extract:
-	poetry run pybabel extract -F babel.cfg -o translations/messages.pot .
-
-trans-init: trans-extract
-	poetry run pybabel init -i translations/messages.pot -d translations
-
-trans-update: trans-extract
-	poetry run pybabel update -i translations/messages.pot -d translations
-
-trans-compile:
-	poetry run pybabel compile -d translations
-
-trans: trans-extract trans-update trans-compile
+routes:
+	poetry run flask routes
 
 rufffix:
 	poetry run ruff --fix --exit-zero .
