@@ -1,9 +1,7 @@
 from flask_injector import singleton
 
-from models.card import Card
-from models.user import User
-from repositories.cardRepository import CardRepository
-from repositories.userRepository import UserRepository
+from repositories.cardRepository import CardRepository, cardRepository
+from repositories.userRepository import UserRepository, userRepository
 from services.authService import AuthService
 from services.authServiceImpl import AuthServiceImpl
 from services.cardNumberExtractorService import CardNumberExtractorService
@@ -15,17 +13,17 @@ from services.cardServiceImpl import CardServiceImpl
 def configure(binder):
     binder.bind(
         UserRepository,
-        to=UserRepository(model=Card),
+        to=userRepository,
         scope=singleton,
     )
     binder.bind(
         CardRepository,
-        to=CardRepository(model=Card),
+        to=cardRepository,
         scope=singleton,
     )
     binder.bind(
         CardService,
-        to=CardServiceImpl(cardRepository=CardRepository(model=Card)),
+        to=CardServiceImpl(cardRepository),
         scope=singleton,
     )
     binder.bind(
@@ -35,6 +33,6 @@ def configure(binder):
     )
     binder.bind(
         AuthService,
-        to=AuthServiceImpl(userRepository=UserRepository(model=User)),
+        to=AuthServiceImpl(userRepository),
         scope=singleton,
     )
