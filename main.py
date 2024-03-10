@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from admin import registerAdmin
 from commands import createsuperuser, gcards, postman, test
 from config.app import createApp, db
-from config.provider import configure
+from config.providers import configure
 from config.settings import ConfigName
 from urls.api import router as apiRouter
 from utils.functions import getEnvVar
