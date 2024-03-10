@@ -36,6 +36,9 @@ class BaseRepositorySQLalchemy(BaseRepository):
     def getById(self, id: int) -> Model | None:
         return self.filter(id=id)
 
+    def getByPublicId(self, publicId: str) -> Model | None:
+        return self.filter(publicId=publicId)
+
     def getOrCreate(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Tuple[Model, bool]:
         if model := self.filter(*args, **kwargs):
             return model, False

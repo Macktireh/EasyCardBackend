@@ -98,6 +98,19 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def getByPublicId(self, publicId: str) -> Model | None:
+        """
+        Retrieves an entity from the database by its public ID.
+
+        Parameters:
+            publicId (str): The public ID of the entity to retrieve.
+
+        Returns:
+            Model | None: The retrieved entity if found, or None if not found.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
     def getOrCreate(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Tuple[Model, bool]:
         """
         Get or create a new instance of the model.
