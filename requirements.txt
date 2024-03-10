@@ -1,4 +1,3 @@
-flask-admin
 Flask-Bcrypt
 Flask-Injector
 flask-migrate
@@ -9,4 +8,4 @@ opencv-python
 psycopg2-binary
 pytesseract
 python-dotenv
-
+tqdm

@@ -1,1 +1,154 @@
-{"id": "929c06fb-607c-5652-b61e-76da213456d6", "name": "EasyCardBackend REST API 1.0", "description": "EasyCardBackend API documentation for developers to use it.", "order": ["2c8787a6-9071-55f1-bf94-072721b828d2"], "requests": [{"id": "2c8787a6-9071-55f1-bf94-072721b828d2", "method": "GET", "name": "Swagger specifications", "description": "The API Swagger specifications as JSON", "url": "http://localhost:5000/api/swagger.json", "headers": "", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "time": 1709682061}, {"id": "2b68a7cb-c04a-5096-8622-ba9f21d05d45", "method": "GET", "name": "generate api key", "description": "Generate api key", "url": "http://localhost:5000/api/auth/generate-api-key", "headers": "X-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd", "pathVariables": {}, "time": 1709682061}, {"id": "baea724b-ec79-56de-a35a-a84667083f24", "method": "POST", "name": "user login", "description": "User Login", "url": "http://localhost:5000/api/auth/login", "headers": "Content-Type:application/json", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd", "pathVariables": {}, "time": 1709682061}, {"id": "88cacb78-09dc-51f9-9637-d5af695822ca", "method": "POST", "name": "user signup", "description": "User Signup", "url": "http://localhost:5000/api/auth/signup", "headers": "Content-Type:application/json", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd", "pathVariables": {}, "time": 1709682061}, {"id": "17bd209d-2eb4-5429-a4c2-e9d4e914eb62", "method": "POST", "name": "Create new card", "description": "Create new card", "url": "http://localhost:5000/api/cards", "headers": "Content-Type:application/json\nX-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {}, "time": 1709682061}, {"id": "fba677db-17fe-55f0-a497-99d72fefd2bf", "method": "GET", "name": "List all registered cards", "description": "List all registered cards", "url": "http://localhost:5000/api/cards", "headers": "X-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {}, "time": 1709682061}, {"id": "6165225e-fa37-5bdd-8a01-3f43a8861868", "method": "POST", "name": "Extract card number", "description": "Extract card number", "url": "http://localhost:5000/api/cards/extract", "headers": "Content-Type:multipart/form-data", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {}, "time": 1709682061}, {"id": "352cd714-4488-5af2-bd67-fe4ecce7e408", "method": "DELETE", "name": "Delete card", "description": "Delete card", "url": "http://localhost:5000/api/cards/:id", "headers": "Content-Type:application/json\nX-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {"id": 0}, "time": 1709682061}, {"id": "cf766cb2-8fb7-5a7a-ad54-e8737ea48330", "method": "PATCH", "name": "Update card", "description": "Update card", "url": "http://localhost:5000/api/cards/:id", "headers": "Content-Type:application/json\nX-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {"id": 0}, "time": 1709682061}, {"id": "7bd80744-aec5-50e1-82fd-330a8bfd040b", "method": "GET", "name": "Get card by id", "description": "Get card by id", "url": "http://localhost:5000/api/cards/:id", "headers": "X-Fields:", "collectionId": "929c06fb-607c-5652-b61e-76da213456d6", "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "pathVariables": {"id": 0}, "time": 1709682061}], "folders": [{"id": "2c1cdaa5-9603-5b42-a50c-7fda379965bd", "name": "Auth", "description": "auth related operations", "order": ["2b68a7cb-c04a-5096-8622-ba9f21d05d45", "baea724b-ec79-56de-a35a-a84667083f24", "88cacb78-09dc-51f9-9637-d5af695822ca"], "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"}, {"id": "0aa4a0d0-3b83-5247-920d-7f3466a502c3", "name": "Card", "description": "card related operations", "order": ["17bd209d-2eb4-5429-a4c2-e9d4e914eb62", "fba677db-17fe-55f0-a497-99d72fefd2bf", "6165225e-fa37-5bdd-8a01-3f43a8861868", "352cd714-4488-5af2-bd67-fe4ecce7e408", "cf766cb2-8fb7-5a7a-ad54-e8737ea48330", "7bd80744-aec5-50e1-82fd-330a8bfd040b"], "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"}], "timestamp": 1709682061}
+{
+  "id": "929c06fb-607c-5652-b61e-76da213456d6",
+  "name": "EasyCardBackend REST API 1.0",
+  "description": "EasyCardBackend API documentation for developers to use it.",
+  "order": ["2c8787a6-9071-55f1-bf94-072721b828d2"],
+  "requests": [
+    {
+      "id": "2c8787a6-9071-55f1-bf94-072721b828d2",
+      "method": "GET",
+      "name": "Swagger specifications",
+      "description": "The API Swagger specifications as JSON",
+      "url": "http://localhost:5000/api/swagger.json",
+      "headers": "",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "time": 1709682061
+    },
+    {
+      "id": "2b68a7cb-c04a-5096-8622-ba9f21d05d45",
+      "method": "GET",
+      "name": "generate api key",
+      "description": "Generate api key",
+      "url": "http://localhost:5000/api/auth/generate-api-key",
+      "headers": "X-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "baea724b-ec79-56de-a35a-a84667083f24",
+      "method": "POST",
+      "name": "user login",
+      "description": "User Login",
+      "url": "http://localhost:5000/api/auth/login",
+      "headers": "Content-Type:application/json",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "88cacb78-09dc-51f9-9637-d5af695822ca",
+      "method": "POST",
+      "name": "user signup",
+      "description": "User Signup",
+      "url": "http://localhost:5000/api/auth/signup",
+      "headers": "Content-Type:application/json",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "2c1cdaa5-9603-5b42-a50c-7fda379965bd",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "17bd209d-2eb4-5429-a4c2-e9d4e914eb62",
+      "method": "POST",
+      "name": "Create new card",
+      "description": "Create new card",
+      "url": "http://localhost:5000/api/cards",
+      "headers": "Content-Type:application/json\nX-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "fba677db-17fe-55f0-a497-99d72fefd2bf",
+      "method": "GET",
+      "name": "List all registered cards",
+      "description": "List all registered cards",
+      "url": "http://localhost:5000/api/cards",
+      "headers": "X-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "6165225e-fa37-5bdd-8a01-3f43a8861868",
+      "method": "POST",
+      "name": "Extract card number",
+      "description": "Extract card number",
+      "url": "http://localhost:5000/api/cards/extract",
+      "headers": "Content-Type:multipart/form-data",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": {},
+      "time": 1709682061
+    },
+    {
+      "id": "352cd714-4488-5af2-bd67-fe4ecce7e408",
+      "method": "DELETE",
+      "name": "Delete card",
+      "description": "Delete card",
+      "url": "http://localhost:5000/api/cards/:id",
+      "headers": "Content-Type:application/json\nX-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": { "id": 0 },
+      "time": 1709682061
+    },
+    {
+      "id": "cf766cb2-8fb7-5a7a-ad54-e8737ea48330",
+      "method": "PATCH",
+      "name": "Update card",
+      "description": "Update card",
+      "url": "http://localhost:5000/api/cards/:id",
+      "headers": "Content-Type:application/json\nX-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": { "id": 0 },
+      "time": 1709682061
+    },
+    {
+      "id": "7bd80744-aec5-50e1-82fd-330a8bfd040b",
+      "method": "GET",
+      "name": "Get card by id",
+      "description": "Get card by id",
+      "url": "http://localhost:5000/api/cards/:id",
+      "headers": "X-Fields:",
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6",
+      "folder": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "pathVariables": { "id": 0 },
+      "time": 1709682061
+    }
+  ],
+  "folders": [
+    {
+      "id": "2c1cdaa5-9603-5b42-a50c-7fda379965bd",
+      "name": "Auth",
+      "description": "auth related operations",
+      "order": [
+        "2b68a7cb-c04a-5096-8622-ba9f21d05d45",
+        "baea724b-ec79-56de-a35a-a84667083f24",
+        "88cacb78-09dc-51f9-9637-d5af695822ca"
+      ],
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"
+    },
+    {
+      "id": "0aa4a0d0-3b83-5247-920d-7f3466a502c3",
+      "name": "Card",
+      "description": "card related operations",
+      "order": [
+        "17bd209d-2eb4-5429-a4c2-e9d4e914eb62",
+        "fba677db-17fe-55f0-a497-99d72fefd2bf",
+        "6165225e-fa37-5bdd-8a01-3f43a8861868",
+        "352cd714-4488-5af2-bd67-fe4ecce7e408",
+        "cf766cb2-8fb7-5a7a-ad54-e8737ea48330",
+        "7bd80744-aec5-50e1-82fd-330a8bfd040b"
+      ],
+      "collectionId": "929c06fb-607c-5652-b61e-76da213456d6"
+    }
+  ],
+  "timestamp": 1709682061
+}
