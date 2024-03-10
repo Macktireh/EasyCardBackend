@@ -4,7 +4,7 @@ from flask import request
 from flask_injector import inject
 from flask_restx import Resource
 
-from middleware.authMiddleware import api_key_required
+from middlewares.authMiddleware import api_key_required
 from schemas.authSchema import AuthSchema
 from services.authService import AuthService
 
@@ -41,7 +41,7 @@ class LoginController(Resource):
         return self.authService.login(request.json)
 
 
-@api.route("/generate-api-key")
+@api.route("/generate")
 @inject
 class GenerateApiKeyController(Resource):
     def __init__(self, authService: AuthService, *args, **kwargs) -> None:

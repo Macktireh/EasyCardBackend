@@ -7,7 +7,7 @@ from flask_injector import inject
 from flask_restx import Resource, abort
 from numpy import frombuffer, uint8
 
-from middleware.authMiddleware import api_key_required
+from middlewares.authMiddleware import api_key_required
 from schemas.cardSchema import CardSchema
 from services.cardNumberExtractorService import CardNumberExtractorService
 from services.cardService import CardService
@@ -37,8 +37,7 @@ class ListOrCreateCardController(Resource):
     @api_key_required
     def post(self):
         """Create new card"""
-        print(api.payload)
-        return self.cardService.createCard(api.payload)
+        return self.cardService.createCard(api.payload), HTTPStatus.CREATED
 
 
 @api.route("/extract")
@@ -51,6 +50,7 @@ class ExtractCardNumberController(Resource):
     @api.doc("Extract card number")
     @api.response(HTTPStatus.OK, "Card number successfully extracted")
     @api.expect(CardSchema.imageParser, validate=True)
+    @api.marshal_with(CardSchema.codes)
     @api_key_required
     def post(self) -> dict[str, str | List[str]]:
         """Extract card number"""
@@ -61,7 +61,7 @@ class ExtractCardNumberController(Resource):
             abort(HTTPStatus.INTERNAL_SERVER_ERROR, message="something went wrong")
         if not cardNumbers:
             abort(HTTPStatus.BAD_REQUEST, message="card number extraction failed")
-        return {"cardNumbers": cardNumbers, "message": "card number extracted successfully"}
+        return {"cardNumbers": cardNumbers}
 
     def getImage(self) -> MatLike:
         args = CardSchema.imageParser.parse_args()
@@ -71,7 +71,7 @@ class ExtractCardNumberController(Resource):
         return imdecode(nparr, IMREAD_COLOR)
 
 
-@api.route("/<int:id>")
+@api.route("/<string:publicId>")
 @inject
 class CardController(Resource):
     def __init__(self, cardService: CardService, *args, **kwargs) -> None:
@@ -82,21 +82,23 @@ class CardController(Resource):
     @api.response(HTTPStatus.OK, "Card successfully retrieved")
     @api.marshal_with(CardSchema.card)
     @api_key_required
-    def get(self, id: int):
-        """Get card by id"""
-        return self.cardService.getCardById(id)
+    def get(self, publicId: str):
+        """Get card by publicId"""
+        return self.cardService.getCard(publicId)
 
     @api.doc("Update card")
     @api.response(HTTPStatus.OK, "Card successfully updated")
     @api.expect(CardSchema.cardIn)
     @api.marshal_with(CardSchema.card)
-    def patch(self, id: int):
+    @api_key_required
+    def patch(self, publicId: str):
         """Update card"""
-        return self.cardService.updateCard(id, api.payload)
+        return self.cardService.updateCard(publicId, api.payload)
 
     @api.doc("Delete card")
     @api.response(HTTPStatus.NO_CONTENT, "Card successfully deleted")
     @api.marshal_with(CardSchema.card)
-    def delete(self, id: int):
+    @api_key_required
+    def delete(self, publicId: str):
         """Delete card"""
-        return self.cardService.deleteCard(id), HTTPStatus.NO_CONTENT
+        return self.cardService.deleteCard(publicId), HTTPStatus.NO_CONTENT
