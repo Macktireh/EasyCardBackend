@@ -1,4 +1,4 @@
-from flask import redirect
+from flask import get_flashed_messages, redirect
 from flask_injector import FlaskInjector
 from flask_migrate import Migrate
 
@@ -33,3 +33,5 @@ app.cli.add_command(postman)
 app.cli.add_command(test)
 
 FlaskInjector(app=app, modules=[configure])
+
+app.jinja_env.globals.update({'url_for': app.url_for, 'get_flashed_messages': get_flashed_messages})
