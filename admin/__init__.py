@@ -14,5 +14,6 @@ def registerAdmin(app: Flask, db: SQLAlchemy) -> None:
     admin = Admin(app, name="Control Panel")
 
     with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", "Fields missing from ruleset", UserWarning)
         admin.add_view(UserAdmin(User, db.session))
         admin.add_view(CardAdmin(Card, db.session))
