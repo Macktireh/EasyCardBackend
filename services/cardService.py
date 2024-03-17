@@ -31,12 +31,40 @@ class CardService(ABC):
 
     @abstractmethod
     def getCard(self, publicId: str) -> Card:
+        """
+        A description of the entire function, its parameters, and its return types.
+
+        Args:
+            publicId (str): The public ID of the card to retrieve.
+
+        Returns:
+            Card: The retrieved card object.
+        """
         raise NotImplementedError
 
     @abstractmethod
     def updateCard(self, publicId: str, payload: CardIn) -> Card:
+        """
+        Updates a card with the given public ID using the provided payload.
+
+        Args:
+            publicId (str): The public ID of the card to be updated.
+            payload (CardIn): The payload containing the updated card information.
+
+        Returns:
+            Card: The updated card object.
+        """
         raise NotImplementedError
 
     @abstractmethod
     def deleteCard(self, publicId: str) -> None:
+        """
+        A description of the entire function, its parameters, and its return types.
+
+        Args:
+            publicId (str): The public ID of the card to be deleted.
+
+        Returns:
+            None
+        """
         raise NotImplementedError
