@@ -19,6 +19,7 @@ class AuthService(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     def login(self, data: RequestLoginDTO) -> Dict[str, str]:
         """
         Authenticate user and generate an API key for successful login.
@@ -31,6 +32,7 @@ class AuthService(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     def generateApiKey(self, user: User) -> Dict[str, str]:
         """
         Generate an API key for the given user and return it as a dictionary.
@@ -43,6 +45,7 @@ class AuthService(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     def verifyApiKey(self, apiKey: str) -> Dict[str, str]:
         """
         Verify the API key and return a dictionary with a message indicating its validity.
@@ -55,6 +58,7 @@ class AuthService(ABC):
         """
         raise NotImplementedError
 
+    @abstractmethod
     def authenticate(self, email: str, password: str) -> User | None:
         """
         Authenticate a user with the given email and password.
