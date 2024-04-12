@@ -9,24 +9,40 @@ class CardSchema:
         name="cardIn",
         model={
             "code": fields.String(
-                required=True, description="secret code", max_length=12, min_length=12, example="123456789123"
+                required=True,
+                description="secret code",
+                max_length=12,
+                min_length=12,
+                example="123456789123",
             ),
             "cardType": fields.String(
-                required=True, description="type of card", enum=["500", "1000", "2000", "5000", "10000"], example="1000"
+                required=True,
+                description="type of card",
+                enum=["500", "1000", "2000", "5000", "10000"],
+                example="1000",
             ),
         },
         strict=False,
     )
+
+    allCards = api.model(name="allCards", model={"cards": fields.List(fields.Nested(cardIn))})
 
     card = api.model(
         name="card",
         model={
             "publicId": fields.String(description="public id of the card", readonly=True, example=1),
             "code": fields.String(
-                required=True, description="secret code", max_length=12, min_length=12, example="123456789123"
+                required=True,
+                description="secret code",
+                max_length=12,
+                min_length=12,
+                example="123456789123",
             ),
             "cardType": fields.String(
-                required=True, description="type of card", enum=["500", "1000", "2000", "5000", "10000"], example="1000"
+                required=True,
+                description="type of card",
+                enum=["500", "1000", "2000", "5000", "10000"],
+                example="1000",
             ),
             "isValid": fields.Boolean(description="if the card is valid", example=True),
             "createdAt": fields.DateTime(description="date of the card creation", readonly=True),
@@ -47,4 +63,10 @@ class CardSchema:
     )
 
     imageParser = reqparse.RequestParser()
-    imageParser.add_argument("image", type=FileStorage, location="files", required=True, help="image field is required")
+    imageParser.add_argument(
+        "image",
+        type=FileStorage,
+        location="files",
+        required=True,
+        help="image field is required",
+    )

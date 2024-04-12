@@ -1,8 +1,8 @@
 from models.card import Card
-from repositories.baseRepositorySQLalchemy import BaseRepositorySQLalchemy
+from repositories.baseRepositorySQLalchemy import BaseRepositorySQLAlchemy
 
 
-class CardRepository(BaseRepositorySQLalchemy):
+class CardRepository(BaseRepositorySQLAlchemy):
     def __init__(self, model: Card) -> None:
         super().__init__(model)
 
