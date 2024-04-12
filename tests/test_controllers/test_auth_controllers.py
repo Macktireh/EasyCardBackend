@@ -34,7 +34,10 @@ class AuthControllerTestCase(TestCase):
             name="Bob Johnson", email="bob.johnson@example.com", password=self.data["password"]
         )
         self.user2 = userRepository.create(
-            name="Alice Smith", email="alice.doe@example.com", password=self.data["password"], isActive=False
+            name="Alice Smith",
+            email="alice.doe@example.com",
+            password=self.data["password"],
+            isActive=False,
         )
 
     def tearDown(self) -> None:

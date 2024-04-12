@@ -1,8 +1,8 @@
 from models.user import User
-from repositories.baseRepositorySQLalchemy import BaseRepositorySQLalchemy
+from repositories.baseRepositorySQLalchemy import BaseRepositorySQLAlchemy
 
 
-class UserRepository(BaseRepositorySQLalchemy):
+class UserRepository(BaseRepositorySQLAlchemy):
     def __init__(self, model: User) -> None:
         super().__init__(model)
 

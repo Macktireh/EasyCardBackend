@@ -71,5 +71,8 @@ class ConfigName(str, Enum):
 
 
 configByName = dict(
-    development=DevelopmentConfig, testing=TestingConfig, production=ProductionConfig, postman=PostmanConfig
+    development=DevelopmentConfig,
+    testing=TestingConfig,
+    production=ProductionConfig,
+    postman=PostmanConfig,
 )
