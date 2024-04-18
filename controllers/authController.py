@@ -50,6 +50,7 @@ class GenerateApiKeyController(Resource):
 
     @api.doc("generate api key")
     @api.marshal_with(AuthSchema.token)
+    @api.deprecated
     @api_key_required
     def get(self):
         """Generate api key"""
