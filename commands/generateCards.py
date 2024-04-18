@@ -17,15 +17,25 @@ def generate() -> None:
 
     cardTypes = [
         TypeEnum.CARD_500,
+        TypeEnum.CARD_500,
+        TypeEnum.CARD_500,
+        TypeEnum.CARD_500,
+        TypeEnum.CARD_500,
+        TypeEnum.CARD_1000,
+        TypeEnum.CARD_1000,
+        TypeEnum.CARD_1000,
         TypeEnum.CARD_1000,
         TypeEnum.CARD_2000,
+        TypeEnum.CARD_2000,
+        TypeEnum.CARD_2000,
+        TypeEnum.CARD_5000,
         TypeEnum.CARD_5000,
         TypeEnum.CARD_10000,
     ]
 
     codes = []
 
-    for _ in tqdm(range(500)):
+    for _ in tqdm(range(1355)):
         code = randint(100000000000, 999999999999)
         while code in codes:
             code = randint(100000000000, 999999999999)
@@ -33,17 +43,17 @@ def generate() -> None:
         cardRepository.create(
             code=str(code),
             cardType=cardTypes[randint(0, len(cardTypes) - 1)],
-            isValid=randint(0, 1) == 1,
+            isValid=randint(0, 2) != 0,
             createdAt=datetime.now()
-            + timedelta(days=randint(-25, -12))
+            + timedelta(days=randint(-25, -0))
             + timedelta(hours=randint(-9, 9))
             + timedelta(minutes=randint(-20, 20))
             + timedelta(seconds=randint(-20, 20)),
-            updatedAt=datetime.now()
-            + timedelta(days=randint(-11, -0))
-            + timedelta(hours=randint(-9, 9))
-            + timedelta(minutes=randint(-20, 20))
-            + timedelta(seconds=randint(-20, 20)),
+            # updatedAt=datetime.now()
+            # + timedelta(days=randint(11, 0))
+            # + timedelta(hours=randint(9, 9))
+            # + timedelta(minutes=randint(20, 20))
+            # + timedelta(seconds=randint(20, 20)),
         )
 
     print()
