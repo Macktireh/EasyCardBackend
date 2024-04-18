@@ -6,6 +6,7 @@ from models.card import Card
 from repositories.cardRepository import CardRepository
 from services.cardService import CardService
 from utils.types import CardIn
+from validators.cardValidator import CardValidator
 
 
 class CardServiceImpl(CardService):
@@ -13,9 +14,18 @@ class CardServiceImpl(CardService):
         self.cardRepository = cardRepository
 
     def createCard(self, payload: CardIn) -> Card:
+        CardValidator.validateRaise(payload)
         if self.cardRepository.exists(code=payload["code"]):
             raise exceptions.Conflict("Card already exists")
         return self.cardRepository.create(**payload)
+
+    def createAllCards(self, payload: List[CardIn]) -> None:
+        CardValidator.validateList(payload)
+        for i, card in enumerate(payload):
+            CardValidator.validateRaise(card, f"The information provided by card #{i+1} is not valid")
+            if self.cardRepository.exists(code=card["code"]):
+                raise exceptions.Conflict(f"Card #{i+1} already exists")
+        self.cardRepository.createAll(payload)
 
     def getCards(self) -> List[Card]:
         return self.cardRepository.getAll()
@@ -31,4 +41,4 @@ class CardServiceImpl(CardService):
 
     def deleteCard(self, publicId: str) -> None:
         card = self.cardRepository.getOr404(publicId=publicId)
-        return self.cardRepository.delete(card)
+        self.cardRepository.delete(card)

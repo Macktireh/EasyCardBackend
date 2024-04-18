@@ -35,6 +35,19 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def createAll(self, data: List[Dict[str, Any]]) -> None:
+        """
+        Create multiple instances of the model with the specified arguments and saves them to the database.
+
+        Args:
+            data (List[Dict[str, Any]]): The list of dictionaries containing the arguments to pass to the model constructor.
+
+        Returns:
+            None
+        """  # noqa: E501
+        raise NotImplementedError
+
+    @abstractmethod
     def filter(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model | None:
         """
         Find a record in the database based on the provided arguments.
@@ -165,5 +178,15 @@ class BaseRepository(ABC):
 
         Returns:
             Model: The deleted model object.
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def deleteAll(self) -> None:
+        """
+        Delete all model objects from the database.
+
+        Returns:
+            None
         """
         raise NotImplementedError

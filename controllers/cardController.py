@@ -40,6 +40,22 @@ class ListOrCreateCardController(Resource):
         return self.cardService.createCard(api.payload), HTTPStatus.CREATED
 
 
+@api.route("/all")
+@inject
+class CreateAllCardController(Resource):
+    def __init__(self, cardService: CardService, *args, **kwargs) -> None:
+        super().__init__(*args, **kwargs)
+        self.cardService = cardService
+
+    @api.doc("Create all new card")
+    @api.response(HTTPStatus.CREATED, "all card successfully created")
+    @api.expect(CardSchema.allCards, validate=True)
+    @api_key_required
+    def post(self):
+        """Create all new card"""
+        return self.cardService.createAllCards(api.payload["cards"]), HTTPStatus.CREATED
+
+
 @api.route("/extract")
 @inject
 class ExtractCardNumberController(Resource):
@@ -60,7 +76,7 @@ class ExtractCardNumberController(Resource):
         except Exception:
             abort(HTTPStatus.INTERNAL_SERVER_ERROR, message="something went wrong")
         if not cardNumbers:
-            abort(HTTPStatus.BAD_REQUEST, message="card number extraction failed")
+            abort(HTTPStatus.BAD_REQUEST, message="Failed to extract cards")
         return {"cardNumbers": cardNumbers}
 
     def getImage(self) -> MatLike:
@@ -97,7 +113,6 @@ class CardController(Resource):
 
     @api.doc("Delete card")
     @api.response(HTTPStatus.NO_CONTENT, "Card successfully deleted")
-    @api.marshal_with(CardSchema.card)
     @api_key_required
     def delete(self, publicId: str):
         """Delete card"""
