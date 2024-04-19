@@ -34,6 +34,30 @@ class CardControllerTestCase(TestCase):
             "code": "123456789012",
             "cardType": TypeEnum.CARD_1000,
         }
+        self.cards = {
+            "cards": [
+                {
+                    "code": str(randint(100000000000, 999999999999)),
+                    "cardType": TypeEnum.CARD_500,
+                },
+                {
+                    "code": str(randint(100000000000, 999999999999)),
+                    "cardType": TypeEnum.CARD_1000,
+                },
+                {
+                    "code": str(randint(100000000000, 999999999999)),
+                    "cardType": TypeEnum.CARD_2000,
+                },
+                {
+                    "code": str(randint(100000000000, 999999999999)),
+                    "cardType": TypeEnum.CARD_5000,
+                },
+                {
+                    "code": str(randint(100000000000, 999999999999)),
+                    "cardType": TypeEnum.CARD_10000,
+                },
+            ]
+        }
         self.card = cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_500)
         cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_1000)
         cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_2000)
@@ -87,6 +111,34 @@ class CardControllerTestCase(TestCase):
         # case: code is invalid
         data = {"code": "123", "cardType": self.card.cardType}
         response = self.client.post(f"{self.cardEndpoint}?apiKey={self.apiKey}", json=data)
+        self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
+
+    def test_controller_card_create_multiple_success(self) -> None:
+        response = self.client.post(f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards)
+        self.assertEqual(response.status_code, HTTPStatus.CREATED)
+
+    def test_controller_card_create_multiple_fail(self) -> None:
+        # case: invalid api key
+        response = self.client.post(f"{self.cardEndpoint}/all?apiKey=invalid", json=self.cards)
+        self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
+
+        # case: no api key
+        response = self.client.post(f"{self.cardEndpoint}/all", json=self.cards)
+        self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
+
+        # case: card already exists
+        self.cards["cards"][0]["code"] = self.card.code
+        response = self.client.post(f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards)
+        self.assertEqual(response.status_code, HTTPStatus.CONFLICT)
+
+        # case: code is invalid
+        data = {
+            "cards": [
+                {"code": "123", "cardType": self.card.cardType},
+                {"code": "456", "cardType": self.card.cardType},
+            ]
+        }
+        response = self.client.post(f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=data)
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
     def test_controller_card_get_success(self) -> None:

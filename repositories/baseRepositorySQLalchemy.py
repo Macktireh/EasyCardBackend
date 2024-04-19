@@ -8,18 +8,22 @@ from repositories import BaseRepository
 Model = TypeVar("Model")
 
 
-class BaseRepositorySQLalchemy(BaseRepository):
+class BaseRepositorySQLAlchemy(BaseRepository):
     def __init__(self, model: Model) -> None:
         self.model = model
 
-    def save(self, _model: Model, update: bool = True) -> Model:
+    def save(self, _model: Model) -> Model:
         db.session.commit()
         return _model
 
     def create(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model:
         _model = self.model(*args, **kwargs)
         db.session.add(_model)
-        return self.save(_model, False)
+        return self.save(_model)
+
+    def createAll(self, data: List[Dict[str, Any]]) -> None:
+        db.session.bulk_insert_mappings(self.model, data)
+        db.session.commit()
 
     def filter(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model | None:
         return self.model.query.filter_by(*args, **kwargs).first()
@@ -56,3 +60,10 @@ class BaseRepositorySQLalchemy(BaseRepository):
         db.session.delete(_model)
         db.session.commit()
         return _model
+
+    def deleteAll(self) -> None:
+        try:
+            db.session.query(self.model).delete()
+            db.session.commit()
+        except Exception:
+            db.session.rollback()

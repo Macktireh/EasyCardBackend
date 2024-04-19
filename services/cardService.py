@@ -20,6 +20,19 @@ class CardService(ABC):
         raise NotImplementedError
 
     @abstractmethod
+    def createAllCards(self, payload: List[CardIn]) -> None:
+        """
+        A method to create multiple cards using the provided payload and return the created cards.
+
+        Parameters:
+            payload (List[CardIn]): The payload to create the cards.
+
+        Returns:
+            None
+        """
+        raise NotImplementedError
+
+    @abstractmethod
     def getCards(self) -> List[Card]:
         """
         A method to retrieve the cards and their associated information.
