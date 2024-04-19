@@ -1,4 +1,4 @@
-.PHONY: run m u mu sm shell gcards postman test superuser rufffix ruffformat ruff clean
+.PHONY: run m u mu sm shell gcards dcards postman test superuser rufffix ruffformat ruff clean
 
 .DEFAULT_GOAL := run
 
@@ -17,8 +17,11 @@ u:
 # migrate + upgrade
 mu: m u
 
-# upgrade + generate data
+# upgrade + generate cards
 ug: u gcards
+
+# delete cards + generate cards
+dg: dcards gcards
 
 # showmigrations
 sm:
@@ -29,6 +32,9 @@ shell:
 
 gcards:
 	poetry run flask gcards
+
+dcards:
+	poetry run flask dcards
 
 postman:
 	poetry run flask postman --export=True
