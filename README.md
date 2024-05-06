@@ -48,7 +48,7 @@ cd EasyCardBackend
 ### 2. Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+poetry install
 ```
 
 ## Configuration
