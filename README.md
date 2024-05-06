@@ -62,7 +62,7 @@ Additionally, make sure to create a `.env` file based on the provided example fi
 ### Running the Server
 
 ```bash
-python app.py
+poetry run flask run
 ```
 
 The server will start running at `http://localhost:5000`.
