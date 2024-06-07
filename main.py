@@ -1,8 +1,10 @@
+import contextlib
+
 from flask import get_flashed_messages, redirect
 from flask_injector import FlaskInjector
 from flask_migrate import Migrate
+from werkzeug.wrappers.response import Response
 
-from admin import registerAdmin
 from commands import createsuperuser, dcards, gcards, postman, test
 from config.app import createApp, db
 from config.providers import configure
@@ -17,13 +19,15 @@ app = createApp(ENV)
 migrate = Migrate(app, db)
 
 if ENV == ConfigName.DEVELOPEMENT:
-    registerAdmin(app, db)
+    with contextlib.suppress(Exception):
+        from admin import registerAdmin
+        registerAdmin(app, db)
 
 app.register_blueprint(apiRouter)
 
 
 @app.route("/")
-def index() -> str:
+def index() -> Response:
     return redirect("/api/docs")
 
 
