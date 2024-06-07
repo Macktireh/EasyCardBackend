@@ -3,6 +3,7 @@ Flask-Injector
 flask-migrate
 flask-restx
 flask-sqlalchemy
+gunicorn
 numpy
 opencv-python
 psycopg2-binary
