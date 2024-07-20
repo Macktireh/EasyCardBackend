@@ -30,8 +30,9 @@ EasyCardBackend is a backend service designed to support the EasyCardGUIDesktop 
 
 ## Prerequisites
 
-- Python 3.10 or higher
+- Python 3.12 or higher
 - Tesseract-OCR (download [here](https://github.com/tesseract-ocr/tesseract))
+- Install [PDM](https://pdm-project.org/)
 
 ## Installation
 
@@ -48,7 +49,7 @@ cd EasyCardBackend
 ### 2. Install Dependencies
 
 ```bash
-poetry install
+pdm install
 ```
 
 ## Configuration
@@ -62,7 +63,7 @@ Additionally, make sure to create a `.env` file based on the provided example fi
 ### Running the Server
 
 ```bash
-poetry run flask run
+pdm start
 ```
 
 The server will start running at `http://localhost:5000`.
