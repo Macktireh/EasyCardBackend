@@ -1,5 +1,5 @@
 import os
-from typing import List
+from typing import List, override
 
 import cv2
 import pytesseract
@@ -14,6 +14,7 @@ if os.name == "nt":
 
 
 class CardNumberExtractorServiceImpl(CardNumberExtractorService):
+    @override
     def imageToText(self, image) -> str | None:
         try:
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -23,6 +24,7 @@ class CardNumberExtractorServiceImpl(CardNumberExtractorService):
             print(str(e) + " Add path environment variable TESSERACT_CMD")
             return None
 
+    @override
     def getCardNumbers(self, image) -> List[str | None]:
         listCardNumber = []
         texts = self.imageToText(image).split()
