@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, override
 
 from werkzeug import exceptions
 
@@ -14,6 +14,7 @@ class AuthServiceImpl(AuthService):
     def __init__(self, userRepository: UserRepository) -> None:
         self.userRepository = userRepository
 
+    @override
     def register(self, data: RequestSignupDTO) -> Dict[str, str]:
         AuthValidator.validateSignupRaise(**data)
 
@@ -25,6 +26,7 @@ class AuthServiceImpl(AuthService):
 
         return dict(message="You have registered successfully.")
 
+    @override
     def login(self, data: RequestLoginDTO) -> Dict[str, str]:
         AuthValidator.validateLoginRaise(**data)
 
@@ -38,6 +40,7 @@ class AuthServiceImpl(AuthService):
 
         return dict(message="You have logged in successfully.", apiKey=apiKey)
 
+    @override
     def generateApiKey(self, apiKey: str) -> Dict[str, str]:
         user = TokenService.verify(apiKey)
         if not user:
@@ -45,12 +48,14 @@ class AuthServiceImpl(AuthService):
         apiKey = TokenService.generate(TokenPayload(publicId=user.publicId, isActive=user.isActive))
         return dict(apiKey=apiKey)
 
+    @override
     def verifyApiKey(self, apiKey: str) -> dict[str, str]:
         user = TokenService.verify(apiKey)
         if not user:
             raise exceptions.Unauthorized("Invalid API Key")
         return dict(message="API Key is valid")
 
+    @override
     def authenticate(self, email: str, password: str) -> User | None:
         user = self.userRepository.filter(email=email)
         if user and user.checkPassword(password):
