@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Error flags configuration for bash
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# Launching migrations and the server
+flask db upgrade
+flask run --host=0.0.0.0 --port=5000
