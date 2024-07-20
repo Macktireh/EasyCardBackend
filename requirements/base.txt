@@ -1,12 +1,13 @@
-Flask-Bcrypt
-Flask-Injector
+flask-admin
+flask-bcrypt
+flask-injector
 flask-migrate
 flask-restx
 flask-sqlalchemy
 gunicorn
 numpy
 opencv-python
-psycopg2-binary
+psycopg[binary]
 pytesseract
 python-dotenv
 tqdm
