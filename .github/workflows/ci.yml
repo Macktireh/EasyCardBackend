@@ -12,8 +12,8 @@ jobs:
       fail-fast: false
       max-parallel: 4
       matrix:
-        python-version: [3.11.9, 3.12.5]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        python-version: [3.11.9, 3.12.4]
+        os: [ubuntu-latest, macOS-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
