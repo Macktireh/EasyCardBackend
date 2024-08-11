@@ -1,5 +1,4 @@
 import os
-from typing import List, Tuple
 
 import cv2
 import numpy as np
@@ -12,7 +11,7 @@ def getEnvVar(varName: str, default: str | None = None, required: bool = True) -
     return value
 
 
-def createImage(size: Tuple[int, int], list_text: List[str], file_path: str) -> None:
+def createImage(size: tuple[int, int], list_text: list[str], file_path: str) -> None:
     # Créer une image blanche de size pixels
     img = np.ones((size[0], size[1], 3), dtype=np.uint8) * 255
     font: int = cv2.FONT_HERSHEY_SIMPLEX

@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import List
 
 from flask_restx import abort
 
@@ -37,7 +36,7 @@ class CardValidator:
             abort(HTTPStatus.BAD_REQUEST, message=message, errors=errors)
 
     @staticmethod
-    def validateList(payload: List[CardIn]) -> None:
+    def validateList(payload: list[CardIn]) -> None:
         codes = [card["code"] for card in payload]
         if len(set(codes)) != len(codes):
             abort(HTTPStatus.BAD_REQUEST, message="All codes must be unique")

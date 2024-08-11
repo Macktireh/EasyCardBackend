@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
 
 from models.card import Card
 from utils.types import CardIn
@@ -20,7 +19,7 @@ class CardService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def createAllCards(self, payload: List[CardIn]) -> None:
+    def createAllCards(self, payload: list[CardIn]) -> None:
         """
         A method to create multiple cards using the provided payload and return the created cards.
 
@@ -33,7 +32,7 @@ class CardService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getCards(self) -> List[Card]:
+    def getCards(self) -> list[Card]:
         """
         A method to retrieve the cards and their associated information.
 

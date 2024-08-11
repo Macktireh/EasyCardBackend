@@ -1,4 +1,4 @@
-from typing import List, override
+from typing import override
 
 from werkzeug import exceptions
 
@@ -21,7 +21,7 @@ class CardServiceImpl(CardService):
         return self.cardRepository.create(**payload)
 
     @override
-    def createAllCards(self, payload: List[CardIn]) -> None:
+    def createAllCards(self, payload: list[CardIn]) -> None:
         CardValidator.validateList(payload)
         for i, card in enumerate(payload):
             CardValidator.validateRaise(card, f"The information provided by card #{i+1} is not valid")
@@ -30,7 +30,7 @@ class CardServiceImpl(CardService):
         self.cardRepository.createAll(payload)
 
     @override
-    def getCards(self) -> List[Card]:
+    def getCards(self) -> list[Card]:
         return self.cardRepository.getAll()
 
     @override
