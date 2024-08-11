@@ -17,7 +17,15 @@ ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"]
 API_TOKEN_EXPIRES = 60 * 60 * 24 * 7
 
 
+class ConfigName(str, Enum):
+    DEVELOPEMENT = "development"
+    TESTING = "testing"
+    PRODUCTION = "production"
+    POSTMAN = "postman"
+
+
 class GlobalConfig:
+    ENV = getEnvVar("FLASK_ENV", ConfigName.DEVELOPEMENT)
     DEBUG = False
     FLASK_DEBUG = False
     FLASK_ENV = getEnvVar("FLASK_ENV", "development")
@@ -55,19 +63,13 @@ class TestingConfig(GlobalConfig):
 
 class ProductionConfig(GlobalConfig):
     PRODUCTION = True
-    SQLALCHEMY_DATABASE_URI = f"postgresql://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
+    if GlobalConfig.ENV == ConfigName.PRODUCTION:
+        SQLALCHEMY_DATABASE_URI = f"postgresql://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
 
 
 class PostmanConfig(DevelopmentConfig):
     SERVER_NAME = getEnvVar("SERVER_NAME", "localhost:5000")
     APPLICATION_ROOT = getEnvVar("APPLICATION_ROOT", "/")
-
-
-class ConfigName(str, Enum):
-    DEVELOPEMENT = "development"
-    TESTING = "testing"
-    PRODUCTION = "production"
-    POSTMAN = "postman"
 
 
 configByName = dict(

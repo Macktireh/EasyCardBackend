@@ -8,17 +8,14 @@ from werkzeug.wrappers.response import Response
 from commands import createsuperuser, dcards, gcards, postman, test
 from config.app import createApp, db
 from config.providers import configure
-from config.settings import ConfigName
+from config.settings import ConfigName, GlobalConfig
 from urls.api import router as apiRouter
-from utils.functions import getEnvVar
 
-ENV = getEnvVar("FLASK_ENV", ConfigName.DEVELOPEMENT)
-
-app = createApp(ENV)
+app = createApp(GlobalConfig.ENV)
 
 migrate = Migrate(app, db)
 
-if ENV == ConfigName.DEVELOPEMENT:
+if GlobalConfig.ENV == ConfigName.DEVELOPEMENT:
     with contextlib.suppress(Exception):
         from admin import registerAdmin
 
