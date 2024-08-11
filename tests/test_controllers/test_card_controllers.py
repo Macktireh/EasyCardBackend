@@ -63,9 +63,9 @@ class CardControllerTestCase(TestCase):
         cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_2000)
 
         self.user1 = userRepository.create(name="Bob Johnson", email="bob.johnson@example.com", password="Test@123")
-        self.apiKey = self.client.post(
-            self.loginEndpoint, json={"email": self.user1.email, "password": "Test@123"}
-        ).json["apiKey"]
+        self.apiKey = self.client.post(self.loginEndpoint, json={"email": self.user1.email, "password": "Test@123"}).json[
+            "apiKey"
+        ]
 
         size = (180, 650)
         list_text = ["Serial Number:", f"0000123456789            {self.data['code']}"]

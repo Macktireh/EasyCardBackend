@@ -30,9 +30,7 @@ class AuthControllerTestCase(TestCase):
             "password": "Test@123",
             "passwordConfirm": "Test@123",
         }
-        self.user1 = userRepository.create(
-            name="Bob Johnson", email="bob.johnson@example.com", password=self.data["password"]
-        )
+        self.user1 = userRepository.create(name="Bob Johnson", email="bob.johnson@example.com", password=self.data["password"])
         self.user2 = userRepository.create(
             name="Alice Smith",
             email="alice.doe@example.com",

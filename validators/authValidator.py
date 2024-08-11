@@ -1,12 +1,14 @@
 import re
 from http import HTTPStatus
-from typing import Any, Dict, Literal
+from typing import Any, Literal
 
 from flask_restx import abort
 
 REGEX_EMAIL_VALIDATION = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
 REGEX_PASSWORD_VALIDATION = r"\b^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$\b"
-MESSAGE_PASSWORD_INVALID = "Password is invalid, Should be atleast 8 characters with upper and lower case letters, numbers and special characters"  # noqa
+MESSAGE_PASSWORD_INVALID = (
+    "Password is invalid, Should be atleast 8 characters with upper and lower case letters, numbers and special characters"  # noqa
+)
 
 
 class AuthValidator:
@@ -55,7 +57,7 @@ class AuthValidator:
         return AuthValidator.validate(REGEX_EMAIL_VALIDATION, email)
 
     @staticmethod
-    def validateSignupRaise(**kwargs: Dict[str, Any]) -> Literal[True]:
+    def validateSignupRaise(**kwargs: dict[str, Any]) -> Literal[True]:
         """
         Validate the signup data provided.
 
@@ -98,7 +100,7 @@ class AuthValidator:
         return True
 
     @staticmethod
-    def validateLoginRaise(**kwargs: Dict[str, Any]) -> Literal[True]:
+    def validateLoginRaise(**kwargs: dict[str, Any]) -> Literal[True]:
         """
         Validates the login credentials provided by the user.
 
@@ -157,7 +159,7 @@ class AuthValidator:
         return True
 
     @staticmethod
-    def validateResetPasswordRaise(**kwargs: Dict[str, Any]) -> Literal[True]:
+    def validateResetPasswordRaise(**kwargs: dict[str, Any]) -> Literal[True]:
         """
         Validate the reset password data provided.
 

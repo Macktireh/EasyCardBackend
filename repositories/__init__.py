@@ -1,14 +1,14 @@
 from abc import ABC, abstractmethod
-from typing import Any, Dict, List, Tuple, TypeVar
+from typing import Any, TypeVar
 
-Model = TypeVar("Model")
+T = TypeVar("T")
 
 
 class BaseRepository(ABC):
     """A base repository class for handling database operations."""
 
     @abstractmethod
-    def save(self, _model: Model, update: bool = True) -> Model:
+    def save(self, _model: T, update: bool = True) -> T:
         """
         Saves the given model to the database.
 
@@ -21,7 +21,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def create(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model:
+    def create(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T:
         """
         Creates a new instance of the model with the specified arguments and saves it to the database.
 
@@ -35,7 +35,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def createAll(self, data: List[Dict[str, Any]]) -> None:
+    def createAll(self, data: list[dict[str, Any]]) -> None:
         """
         Create multiple instances of the model with the specified arguments and saves them to the database.
 
@@ -48,7 +48,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filter(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model | None:
+    def filter(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T | None:
         """
         Find a record in the database based on the provided arguments.
 
@@ -62,7 +62,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filterAll(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> List[Model]:
+    def filterAll(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> list[T]:
         """
         Filter all instances of Model by the given arguments.
 
@@ -76,7 +76,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def filterAllByExpression(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> List[Model]:
+    def filterAllByExpression(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> list[T]:
         """
         Filter all instances of Model by the given expression.
 
@@ -90,7 +90,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getAll(self) -> List[Model]:
+    def getAll(self) -> list[T]:
         """
         Returns all the elements in the model.
         :return: List of elements in the model.
@@ -98,7 +98,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getById(self, id: int) -> Model | None:
+    def getById(self, id: int) -> T | None:
         """
         Retrieves an entity from the database by its ID.
 
@@ -111,7 +111,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getByPublicId(self, publicId: str) -> Model | None:
+    def getByPublicId(self, publicId: str) -> T | None:
         """
         Retrieves an entity from the database by its public ID.
 
@@ -124,7 +124,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getOrCreate(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Tuple[Model, bool]:
+    def getOrCreate(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> tuple[T, bool]:
         """
         Get or create a new instance of the model.
 
@@ -138,7 +138,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getOr404(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> Model:
+    def getOr404(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> T:
         """
         Get a model instance or raise a 404 error if not found.
 
@@ -155,7 +155,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def exists(self, *args: Tuple[Any, ...], **kwargs: Dict[str, Any]) -> bool:
+    def exists(self, *args: tuple[Any, ...], **kwargs: dict[str, Any]) -> bool:
         """
         Check if a model instance exists in the database.
 
@@ -169,7 +169,7 @@ class BaseRepository(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def delete(self, _model: Model) -> Model:
+    def delete(self, _model: T) -> T:
         """
         Delete a model object from the database.
 

@@ -21,6 +21,7 @@ migrate = Migrate(app, db)
 if ENV == ConfigName.DEVELOPEMENT:
     with contextlib.suppress(Exception):
         from admin import registerAdmin
+
         registerAdmin(app, db)
 
 app.register_blueprint(apiRouter)

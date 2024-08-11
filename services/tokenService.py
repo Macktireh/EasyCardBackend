@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 from flask import current_app as app
 from itsdangerous import URLSafeTimedSerializer
@@ -11,7 +11,7 @@ from utils.types import TokenPayload
 
 class TokenService:
     @staticmethod
-    def generate(payload: Dict[str, Any]) -> str:
+    def generate(payload: dict[str, Any]) -> str:
         serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
         token = serializer.dumps(payload, salt=app.config["SECURITY_PASSWORD_SALT"])
         return token
@@ -20,9 +20,7 @@ class TokenService:
     def getPayload(token: str) -> TokenPayload | None:
         try:
             serializer = URLSafeTimedSerializer(app.config["SECRET_KEY"])
-            payload = serializer.loads(
-                token, salt=app.config["SECURITY_PASSWORD_SALT"], max_age=settings.API_TOKEN_EXPIRES
-            )
+            payload = serializer.loads(token, salt=app.config["SECURITY_PASSWORD_SALT"], max_age=settings.API_TOKEN_EXPIRES)
             return payload
         except Exception:
             return None

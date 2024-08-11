@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import List
 
 
 class CardNumberExtractorService(ABC):
@@ -17,7 +16,7 @@ class CardNumberExtractorService(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    def getCardNumbers(self, image) -> List[str | None]:
+    def getCardNumbers(self, image) -> list[str | None]:
         """
         A description of the entire function, its parameters, and its return types.
 

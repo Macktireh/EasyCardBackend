@@ -1,5 +1,5 @@
 import os
-from typing import List, override
+from typing import override
 
 import cv2
 import pytesseract
@@ -25,7 +25,7 @@ class CardNumberExtractorServiceImpl(CardNumberExtractorService):
             return None
 
     @override
-    def getCardNumbers(self, image) -> List[str | None]:
+    def getCardNumbers(self, image) -> list[str | None]:
         listCardNumber = []
         texts = self.imageToText(image).split()
         for text in texts:

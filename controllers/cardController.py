@@ -1,5 +1,4 @@
 from http import HTTPStatus
-from typing import List
 
 from cv2 import IMREAD_COLOR, imdecode
 from cv2.typing import MatLike
@@ -68,7 +67,7 @@ class ExtractCardNumberController(Resource):
     @api.expect(CardSchema.imageParser, validate=True)
     @api.marshal_with(CardSchema.codes)
     @api_key_required
-    def post(self) -> dict[str, str | List[str]]:
+    def post(self) -> dict[str, str | list[str]]:
         """Extract card number"""
         image = self.getImage()
         try:

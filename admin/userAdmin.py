@@ -1,5 +1,3 @@
-from typing import Dict, List
-
 from flask_admin.contrib.sqla import ModelView
 from flask_admin.helpers import get_form_data
 from wtforms import PasswordField
@@ -10,26 +8,26 @@ from validators.authValidator import MESSAGE_PASSWORD_INVALID, REGEX_PASSWORD_VA
 
 
 class UserAdmin(ModelView):
-    column_searchable_list: List[str] = ["name", "email"]
-    column_filters: List[str] = ["isActive", "isAdmin"]
-    column_editable_list: List[str] = [
+    column_searchable_list: list[str] = ["name", "email"]
+    column_filters: list[str] = ["isActive", "isAdmin"]
+    column_editable_list: list[str] = [
         "name",
         "isActive",
         "isAdmin",
     ]
-    column_sortable_list: List[str] = ["createdAt", "updatedAt"]
-    column_exclude_list: List[str] = ["passwordHash"]
-    column_details_exclude_list: List[str] = ["passwordHash"]
-    column_export_exclude_list: List[str] = ["passwordHash"]
+    column_sortable_list: list[str] = ["createdAt", "updatedAt"]
+    column_exclude_list: list[str] = ["passwordHash"]
+    column_details_exclude_list: list[str] = ["passwordHash"]
+    column_export_exclude_list: list[str] = ["passwordHash"]
 
-    form_create_rules: List[str] = [
+    form_create_rules: list[str] = [
         "name",
         "email",
         "password",
         "passwordConfirm",
         "isActive",
     ]
-    form_edit_rules: List[str] = [
+    form_edit_rules: list[str] = [
         "name",
         "isActive",
         "isAdmin",
@@ -41,7 +39,7 @@ class UserAdmin(ModelView):
     can_view_details: bool = True
     page_size: int = 50
 
-    form_extra_fields: Dict[str, PasswordField] = {
+    form_extra_fields: dict[str, PasswordField] = {
         "password": PasswordField(
             "Password",
             [
