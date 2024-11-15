@@ -5,9 +5,9 @@ flask-migrate
 flask-restx
 flask-sqlalchemy
 gunicorn
-numpy
-opencv-python
+paddleocr
+paddlepaddle
 psycopg[binary]
-pytesseract
 python-dotenv
+setuptools
 tqdm

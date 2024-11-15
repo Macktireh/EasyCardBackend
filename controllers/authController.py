@@ -65,7 +65,6 @@ class VerifyApiKeyController(Resource):
         self.authService = authService
 
     @api.doc("verify api key")
-    @api.marshal_with(AuthSchema.token)
     @api_key_required
     def get(self):
         """Verify api key"""

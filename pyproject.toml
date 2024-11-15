@@ -5,7 +5,7 @@ description = "API for managing credit cards and extracting credit card numbers 
 authors = [
     {name = "Macktireh", email = "abdimack97@gmail.com"},
 ]
-requires-python = "==3.12.*"
+requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
 dependencies = [
@@ -15,24 +15,27 @@ dependencies = [
     "flask-migrate>=4.0.7",
     "flask-restx>=1.3.0",
     "flask-sqlalchemy>=3.1.1",
-    "gunicorn>=22.0.0",
-    "numpy>=2.0.0",
-    "opencv-python>=4.10.0.84",
-    "psycopg[binary]>=3.2.1",
-    "pytesseract>=0.3.10",
+    "gunicorn>=23.0.0",
+    "paddleocr>=2.9.1",
+    "paddlepaddle>=2.6.2",
+    "psycopg[binary]>=3.2.3",
     "python-dotenv>=1.0.1",
-    "tqdm>=4.66.4",
+    "tqdm>=4.67.0",
+    "setuptools>=75.5.0"
 ]
 
-[tool.pdm.dev-dependencies]
-dev = [
+
+[dependency-groups]
+test = [
     "Flask-Testing>=0.8.1",
-    "ruff>=0.5.3",
+]
+lint = [
+    "ruff>=0.7.4",
 ]
 
 
 [tool.pdm.scripts]
-start = "flask run --host=localhost"
+dev = "flask run --host=localhost"
 dbinit = "flask db init"
 migrate = "flask db migrate"
 upgrade = "flask db upgrade"
@@ -51,7 +54,6 @@ ruffformat = "ruff format"
 exports = "pdm export -f requirements --without-hashes"
 docker = "docker compose up --build"
 mu = {composite = ["migrate", "upgrade"]}
-dev = {composite = ["mu", "start"]}
 test = {composite = ["testc", "coverage"]}
 dg = {composite = ["dcards", "gcards"]}
 ruff = {composite = ["rufffix", "ruffformat"]}
