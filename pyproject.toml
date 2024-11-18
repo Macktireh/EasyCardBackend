@@ -48,7 +48,7 @@ postman = "flask postman --export=True"
 ptest = "flask test"
 testc = "coverage run -m unittest discover tests/ -v"
 coverage = "coverage report -m && coverage html"
-ruffcheck = "ruff check"
+ruffcheck = "ruff check --diff"
 rufffix = "ruff check --fix"
 ruffformat = "ruff format"
 exports = "pdm export -f requirements --without-hashes"
@@ -61,7 +61,6 @@ ruff = {composite = ["rufffix", "ruffformat"]}
 
 [tool.ruff]
 line-length = 130
-# Exclude a variety of commonly ignored directories.
 exclude = [
     ".bzr",
     ".direnv",
