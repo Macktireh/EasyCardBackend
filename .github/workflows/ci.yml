@@ -7,56 +7,40 @@ on:
     branches: ["develop", "main"]
 
 jobs:
-  Testing:
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
-      max-parallel: 4
       matrix:
-        python-version: [3.11.9, 3.12.4]
-        os: [ubuntu-latest, macOS-latest]
-    runs-on: ${{ matrix.os }}
+        python-version: ["3.12"]
     steps:
       - uses: actions/checkout@v3
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v3
         with:
           python-version: ${{ matrix.python-version }}
-
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v3
         with:
           poetry-version: ${{ matrix.poetry-version }}
-
       - name: Install dependencies
-        run: pdm install
-
-      - name: Run tests
-        run: pdm run ptest
-
-  Linting:
-    strategy:
-      fail-fast: false
-      max-parallel: 4
-      matrix:
-        python-version: [3.11.9, 3.12.4]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v3
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Set up PDM
-        uses: pdm-project/setup-pdm@v3
-        with:
-          poetry-version: ${{ matrix.poetry-version }}
-
-      - name: Install dependencies
-        run: pdm install
-
+        run: pdm install -dG lint
       - name: Run tests
         run: pdm run ruffcheck
+
+  testing:
+    name: Testing
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: pdm install -dG test
+      - name: Run tests
+        run: pdm run ptest
