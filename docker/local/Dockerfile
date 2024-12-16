@@ -7,14 +7,6 @@ WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
-# install system dependencies
-RUN apt-get update && apt-get install -y --no-install-recommends && apt-get install tesseract-ocr -y \
-    build-essential \
-    libgl1-mesa-glx \
-    libpq-dev \
-    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
-    && rm -rf /var/lib/apt/lists/*
-
 # install python dependencies
 COPY ./requirements requirements/
 RUN pip install -r requirements/all.txt
