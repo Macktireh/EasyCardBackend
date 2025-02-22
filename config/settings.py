@@ -36,7 +36,7 @@ class GlobalConfig:
     TYPE_DATABASE = getEnvVar("TYPE_DATABASE", "sqlite")
     SQLALCHEMY_DATABASE_URI_SQLITE = "sqlite:///" + os.path.join(BASE_DIR, "db.sqlite3")
     if TYPE_DATABASE == "postgresql":
-        SQLALCHEMY_DATABASE_URI = f"postgresql://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
+        SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
     else:
         SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI_SQLITE
     SWAGGER_UI_DOC_EXPANSION = "list"
@@ -64,7 +64,7 @@ class TestingConfig(GlobalConfig):
 class ProductionConfig(GlobalConfig):
     PRODUCTION = True
     if GlobalConfig.ENV == ConfigName.PRODUCTION:
-        SQLALCHEMY_DATABASE_URI = f"postgresql://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
+        SQLALCHEMY_DATABASE_URI = f"postgresql+psycopg://{getEnvVar('POSTGRES_USER')}:{getEnvVar('POSTGRES_PASSWORD')}@{getEnvVar('POSTGRES_HOST')}:{getEnvVar('POSTGRES_PORT')}/{getEnvVar('POSTGRES_DB')}"  # noqa
 
 
 class PostmanConfig(DevelopmentConfig):
