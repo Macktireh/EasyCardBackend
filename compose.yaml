@@ -1,3 +1,8 @@
+name: easy_card_backend_local
+
+volumes:
+  easy_card_db_local_volume:
+
 services:
   flask: &flask
     build:
@@ -5,9 +10,8 @@ services:
       dockerfile: /docker/local/Dockerfile
     image: easycardapi_local
     container_name: easycardapi_local
-    restart: always
     volumes:
-      - .:/app
+      - .:/project
     ports:
       - 5000:5000
     env_file:
@@ -20,19 +24,9 @@ services:
     image: postgres:16-alpine
     container_name: easycard_db_local
     restart: always
-    environment:
-      - "POSTGRES_DB=${POSTGRES_DB}"
-      - "POSTGRES_USER=${POSTGRES_USER}"
-      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+    env_file:
+      - ./.env
     volumes:
-      - easycard_db-data:/var/lib/postgresql/data
-    expose:
-      - 5432
-    # healthcheck:
-    #   test: [ "CMD", "pg_isready" ]
-    #   interval: 10s
-    #   timeout: 5s
-    #   retries: 5
-
-volumes:
-  easycard_db-data:
+      - easy_card_db_local_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432

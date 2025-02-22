@@ -1,0 +1,40 @@
+name: easy_card_backend_prod
+
+volumes:
+  easy_card_db_prod_volume:
+
+services:
+  flask_api: &flask_api
+    image: easy-card-api
+    container_name: easy_card_api_prod
+    ports:
+      - 5000:5000
+    environment:
+      - "SECRET_KEY=stghytfukhiougyhtgtrs"
+      - "SECURITY_PASSWORD_SALT=jkhuljiopmopfuyjr-ujttrhyrthy"
+      - "FLASK_ENV=production"
+      - "FLASK_DEBUG=False"
+      - "TYPE_DATABASE=postgresql"
+      - "POSTGRES_DB=card"
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_PASSWORD=admin"
+      - "POSTGRES_HOST=easy_card_db_prod"
+      - "POSTGRES_PORT=5432"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: easy_card_db_prod
+    volumes:
+      - easy_card_db_prod_volume:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_USER=${POSTGRES_USER}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD}"
+      - "POSTGRES_DB=${POSTGRES_DB}"
+    healthcheck:
+      test: [ "CMD", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
