@@ -63,7 +63,7 @@ Additionally, make sure to create a `.env` file based on the provided example fi
 ### Running the Server
 
 ```bash
-pdm start
+pdm run dev
 ```
 
 The server will start running at `http://localhost:5000`.
