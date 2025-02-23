@@ -3,16 +3,16 @@
 .DEFAULT_GOAL := run
 
 run:
-	poetry run flask run --host=localhost
+	pdm run flask run --host=localhost
 
 i:
-	poetry run flask db init
+	pdm run flask db init
 
 m:
-	poetry run flask db migrate
+	pdm run flask db migrate
 
 u:
-	poetry run flask db upgrade
+	pdm run flask db upgrade
 
 # migrate + upgrade
 mu: m u
@@ -25,44 +25,44 @@ dg: dcards gcards
 
 # showmigrations
 sm:
-	poetry run flask db show
+	pdm run flask db show
 
 shell:
-	poetry run flask shell
+	pdm run flask shell
 
 gcards:
-	poetry run flask gcards
+	pdm run flask gcards
 
 dcards:
-	poetry run flask dcards
+	pdm run flask dcards
 
 postman:
-	poetry run flask postman --export=True
+	pdm run flask postman --export=True
 
 ptest:
-	poetry run flask test
+	pdm run flask test
 testc:
-	poetry run coverage run -m unittest discover tests/ -v
+	pdm run coverage run -m unittest discover tests/ -v
 
 coverage:
-	poetry run coverage report -m
-	poetry run coverage html
+	pdm run coverage report -m
+	pdm run coverage html
 
 test: testc coverage
 
 superuser:
-	poetry run flask createsuperuser
+	pdm run flask createsuperuser
 
 routes:
-	poetry run flask routes
+	pdm run flask routes
 
 rufffix:
-	poetry run ruff --fix --exit-zero .
+	pdm run ruff --fix --exit-zero .
 
 ruffformat:
-	poetry run ruff format .
+	pdm run ruff format .
 
 ruff:
-	poetry run ruff check .
+	pdm run ruff check .
 
 clean: rufffix ruffformat ruff
