@@ -6,5 +6,5 @@ set -o pipefail
 set -o nounset
 
 # Launching migrations and the server
-flask db upgrade
-flask run --host=0.0.0.0 --port=5000
+python3 -m flask db upgrade
+python3 -m flask run --host=0.0.0.0 --port=5000
