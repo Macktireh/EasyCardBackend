@@ -10,14 +10,14 @@ services:
     ports:
       - 5000:5000
     environment:
-      - "SECRET_KEY=stghytfukhiougyhtgtrs"
-      - "SECURITY_PASSWORD_SALT=jkhuljiopmopfuyjr-ujttrhyrthy"
+      - "SECRET_KEY="
+      - "SECURITY_PASSWORD_SALT="
       - "FLASK_ENV=production"
       - "FLASK_DEBUG=False"
       - "TYPE_DATABASE=postgresql"
-      - "POSTGRES_DB=card"
-      - "POSTGRES_USER=admin"
-      - "POSTGRES_PASSWORD=admin"
+      - "POSTGRES_DB="
+      - "POSTGRES_USER="
+      - "POSTGRES_PASSWORD="
       - "POSTGRES_HOST=easy_card_db_prod"
       - "POSTGRES_PORT=5432"
     depends_on:
