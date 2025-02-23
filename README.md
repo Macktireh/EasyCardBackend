@@ -31,7 +31,6 @@ EasyCardBackend is a backend service designed to support the EasyCardGUIDesktop 
 ## Prerequisites
 
 - Python 3.12.*
-- Tesseract-OCR (download [here](https://github.com/tesseract-ocr/tesseract))
 - Install [PDM](https://pdm-project.org/)
 
 ## Installation
