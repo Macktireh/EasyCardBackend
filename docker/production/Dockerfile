@@ -5,23 +5,19 @@ ARG PYTHON_BASE=3.12-slim
 #############################################################################################
 FROM python:$PYTHON_BASE AS builder
 
-# set work directory
 WORKDIR /project
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
+  PDM_CHECK_UPDATE=false
 
-RUN apt-get update && apt-get upgrade -y && \
-  apt-get install -y --no-install-recommends gcc
+RUN apt-get update && apt-get install -y --no-install-recommends gcc && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN pip install -U pdm
-ENV PDM_CHECK_UPDATE=false
 
-COPY pyproject.toml pyproject.toml
-COPY pdm.lock pdm.lock
+COPY pyproject.toml pdm.lock ./
 
-# install dependencies and project into the local packages directory
 RUN pdm install --prod --no-editable
 
 
@@ -32,12 +28,18 @@ FROM python:$PYTHON_BASE
 
 WORKDIR /project
 
-RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 libgomp1 && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y libgl1 libglib2.0-0 libgomp1 && \
+  apt-get clean && rm -rf /var/lib/apt/lists/*
+
+RUN addgroup --system app && adduser --system --group app
+USER app
 
 COPY --from=builder project/.venv .venv/
-ENV PATH=/project/.venv/bin:$PATH
-ENV PYTHONPATH=/project
 
+ENV PATH="/project/.venv/bin:$PATH" \
+  PYTHONPATH="/project"
+
+RUN find .venv -name '*.pyc' -delete && find .venv -name '__pycache__' -delete
 
 COPY admin/ admin/
 COPY commands/ commands/
@@ -56,4 +58,4 @@ COPY main.py main.py
 
 EXPOSE 5000
 
-CMD [ "gunicorn", "main:app", "--bind", "0.0.0.0:5000", "--log-level", "info" ]
+CMD ["gunicorn", "main:app", "--bind", "0.0.0.0:5000", "--workers=4", "--timeout=30", "--log-level=info"]
