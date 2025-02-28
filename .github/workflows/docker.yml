@@ -27,19 +27,21 @@ jobs:
           username: ${{ secrets.GHCR_USERNAME }}
           password: ${{ secrets.GHCR_TOKEN }}
 
-      - name: Get Release Tag
-        id: get_tag
-        run: echo "TAG=t0" >> $GITHUB_ENV
+      # - name: Get Release Tag
+      #   id: get_tag
+      #   run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
 
       - name: Build Docker Image
+        # run: |
+        #   docker build -f src/docker/production/Dockerfile -t ghcr.io/${{ github.repository }}:${{ env.TAG }} .
         run: |
-          docker build -f src/docker/production/Dockerfile -t ghcr.io/${{ github.repository }}:${{ env.TAG }} .
+          docker build -f src/docker/production/Dockerfile -t ghcr.io/${{ github.repository }}:t0 .
 
       - name: Push Docker Image
         run: |
-          docker push ghcr.io/${{ github.repository }}:${{ env.TAG }}
+          docker push ghcr.io/${{ github.repository }}:t0
 
       - name: Tag as latest
         run: |
-          docker tag ghcr.io/${{ github.repository }}:${{ env.TAG }} ghcr.io/${{ github.repository }}:latest
+          docker tag ghcr.io/${{ github.repository }}:t0 ghcr.io/${{ github.repository }}:latest
           docker push ghcr.io/${{ github.repository }}:latest
