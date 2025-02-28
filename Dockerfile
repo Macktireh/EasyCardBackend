@@ -39,7 +39,7 @@ COPY --from=builder project/.venv .venv/
 ENV PATH="/project/.venv/bin:$PATH" \
   PYTHONPATH="/project"
 
-RUN find .venv -name '*.pyc' -delete && find .venv -name '__pycache__' -delete
+# RUN find .venv -name '*.pyc' -delete && find .venv -name '__pycache__' -delete
 
 COPY admin/ admin/
 COPY commands/ commands/
