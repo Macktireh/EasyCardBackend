@@ -65,7 +65,7 @@ Additionally, make sure to create a `.env` file based on the provided example fi
 pdm run dev
 ```
 
-The server will start running at `http://localhost:5000`.
+The server will start running at `http://localhost:5000` 🚀.
 
 ## License
 
