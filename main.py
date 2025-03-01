@@ -29,6 +29,11 @@ def index() -> Response:
     return redirect("/api/docs")
 
 
+@app.route("/health-check")
+def health_check() -> Response:
+    return Response(response="OK", status=200)
+
+
 app.cli.add_command(createsuperuser)
 app.cli.add_command(gcards)
 app.cli.add_command(dcards)
