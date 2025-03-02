@@ -56,6 +56,6 @@ COPY utils/ utils/
 COPY validators/ validators/
 COPY main.py main.py
 
-EXPOSE 5000
+EXPOSE 8000
 
-CMD ["gunicorn", "main:app", "--bind", "0.0.0.0:5000", "--workers=4", "--timeout=30", "--log-level=info"]
+CMD ["gunicorn", "main:app", "--bind", "0.0.0.0:8000", "--log-level", "info"]

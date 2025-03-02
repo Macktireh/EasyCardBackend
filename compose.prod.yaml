@@ -8,7 +8,7 @@ services:
     image: easy-card-api
     container_name: easy_card_api_prod
     ports:
-      - 5000:5000
+      - 8000:8000
     environment:
       - "SECRET_KEY="
       - "SECURITY_PASSWORD_SALT="
