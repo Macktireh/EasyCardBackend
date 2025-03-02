@@ -8,7 +8,7 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
-  HEALTH_CHECK_URL: http://localhost:5000/health-check
+  HEALTH_CHECK_URL: http://localhost:8000/health-check
   HEALTH_CHECK_TIMEOUT: 10
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
           IMAGE_TAGS=$(echo "${{ steps.meta.outputs.tags }}" | cut -d ' ' -f1 | xargs)
           IMAGE_TAG=$(echo "$IMAGE_TAGS" | cut -d ' ' -f1 | xargs)
           echo "Image tag to test: $IMAGE_TAG"
-          docker run -d --name easycardbackendtest -p 5000:5000 $IMAGE_TAG
+          docker run -d --name easycardbackendtest -p 8000:8000 $IMAGE_TAG
           sleep ${{ env.HEALTH_CHECK_TIMEOUT }}
 
       - name: Health Check
