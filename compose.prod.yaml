@@ -5,7 +5,10 @@ volumes:
 
 services:
   flask_api: &flask_api
-    image: easy-card-api
+    build:
+        context: .
+        dockerfile: /docker/production/Dockerfile
+    image: easy_card_api_prod
     container_name: easy_card_api_prod
     ports:
       - 8000:8000
