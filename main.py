@@ -1,4 +1,5 @@
 import contextlib
+from http import HTTPStatus
 
 from flask import get_flashed_messages, redirect
 from flask_injector import FlaskInjector
@@ -31,7 +32,7 @@ def index() -> Response:
 
 @app.route("/health-check")
 def health_check() -> Response:
-    return Response(response="OK", status=200)
+    return Response(response="OK", status=HTTPStatus.OK)
 
 
 app.cli.add_command(createsuperuser)
