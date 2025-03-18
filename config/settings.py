@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from utils.functions import getEnvVar
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+PADDLEOCR_MODEL_DIR = BASE_DIR / ".paddleocr"
 load = load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
