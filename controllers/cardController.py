@@ -1,7 +1,9 @@
 from http import HTTPStatus
+from random import randint
 
 from cv2 import IMREAD_COLOR, imdecode
 from cv2.typing import MatLike
+from flask import request
 from flask_injector import inject
 from flask_restx import Resource, abort
 from numpy import frombuffer, uint8
@@ -84,6 +86,20 @@ class ExtractCardNumberController(Resource):
         contents = image_file.read()
         nparr = frombuffer(contents, uint8)
         return imdecode(nparr, IMREAD_COLOR)
+
+
+@api.route("/extract/fake")
+class FakeExtractCardNumberController(Resource):
+    @api.doc("Fake Extract card number")
+    @api.response(HTTPStatus.OK, "Card number successfully extracted")
+    @api.expect(CardSchema.imageParser, validate=True)
+    @api.marshal_with(CardSchema.codes)
+    @api_key_required
+    def post(self) -> dict[str, str | list[str]]:
+        """Fake Extract card number"""
+        n = request.args.get("n", type=int, default=randint(1, 10))
+        cardNumbers = [randint(100000000000, 999999999999) for _ in range(n)]
+        return {"cardNumbers": list(set(cardNumbers))}
 
 
 @api.route("/<string:publicId>")
