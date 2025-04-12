@@ -97,7 +97,9 @@ class FakeExtractCardNumberController(Resource):
     @api_key_required
     def post(self) -> dict[str, str | list[str]]:
         """Fake Extract card number"""
-        n = request.args.get("n", type=int, default=randint(1, 10))
+        n = request.args.get("n", default=randint(1, 5), type=int)
+        if n == 0:
+            abort(HTTPStatus.BAD_REQUEST, message="n must be greater than 0")
         cardNumbers = [randint(100000000000, 999999999999) for _ in range(n)]
         return {"cardNumbers": list(set(cardNumbers))}
 
