@@ -5,10 +5,10 @@ from typing import Any, Literal
 from flask_restx import abort
 
 REGEX_EMAIL_VALIDATION = r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b"
-REGEX_PASSWORD_VALIDATION = r"\b^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$\b"
-MESSAGE_PASSWORD_INVALID = (
-    "Password is invalid, Should be atleast 8 characters with upper and lower case letters, numbers and special characters"  # noqa
+REGEX_PASSWORD_VALIDATION = (
+    r"\b^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,20}$\b"
 )
+MESSAGE_PASSWORD_INVALID = "Password is invalid, Should be atleast 8 characters with upper and lower case letters, numbers and special characters"  # noqa
 
 
 class AuthValidator:

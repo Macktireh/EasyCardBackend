@@ -14,5 +14,7 @@ def configure(binder: Binder) -> None:
     binder.bind(interface=UserRepository, to=userRepository, scope=singleton)
     binder.bind(interface=CardRepository, to=cardRepository, scope=singleton)
     binder.bind(interface=CardService, to=CardServiceImpl(cardRepository), scope=singleton)
-    binder.bind(interface=CardNumberExtractorService, to=CardNumberExtractorServiceImpl(), scope=singleton)
+    binder.bind(
+        interface=CardNumberExtractorService, to=CardNumberExtractorServiceImpl(), scope=singleton
+    )
     binder.bind(interface=AuthService, to=AuthServiceImpl(userRepository), scope=singleton)

@@ -62,7 +62,7 @@ ruff = {composite = ["rufffix", "ruffformat"]}
 
 
 [tool.ruff]
-line-length = 130
+line-length = 99
 exclude = [
     ".bzr",
     ".direnv",

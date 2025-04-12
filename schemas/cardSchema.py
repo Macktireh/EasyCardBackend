@@ -30,7 +30,9 @@ class CardSchema:
     card = api.model(
         name="card",
         model={
-            "publicId": fields.String(description="public id of the card", readonly=True, example=1),
+            "publicId": fields.String(
+                description="public id of the card", readonly=True, example=1
+            ),
             "code": fields.String(
                 required=True,
                 description="secret code",

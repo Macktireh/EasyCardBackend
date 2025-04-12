@@ -24,7 +24,9 @@ class CardServiceImpl(CardService):
     def createAllCards(self, payload: list[CardIn]) -> None:
         CardValidator.validateList(payload)
         for i, card in enumerate(payload):
-            CardValidator.validateRaise(card, f"The information provided by card #{i + 1} is not valid")
+            CardValidator.validateRaise(
+                card, f"The information provided by card #{i + 1} is not valid"
+            )
             if self.cardRepository.exists(code=card["code"]):
                 raise exceptions.Conflict(f"Card #{i + 1} already exists")
         self.cardRepository.createAll(payload)

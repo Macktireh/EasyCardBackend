@@ -15,7 +15,9 @@ class CardValidator:
         return cardType in ["500", "1000", "2000", "5000", "10000"]
 
     @staticmethod
-    def validateRaise(payload: CardIn, message: str = "The information provided is not valid") -> None:
+    def validateRaise(
+        payload: CardIn, message: str = "The information provided is not valid"
+    ) -> None:
         errors = {}
 
         required_fields = ["code", "cardType"]

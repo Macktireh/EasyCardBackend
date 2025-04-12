@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EasyCard Backend</title>
+    <style>
+      :root {
+        --text: #f1f1f1;
+        --bg: #15202b;
+        --primary: #1d9bf0;
+        --secondary: #1e2732;
+        --gray: #cccccc;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        background: linear-gradient(135deg, var(--bg), var(--secondary));
+        color: var(--text);
+      }
+      header,
+      footer {
+        background-color: var(--secondary);
+        padding: 1rem;
+        text-align: center;
+      }
+      main {
+        flex: 1;
+        padding: 2rem;
+        text-align: center;
+      }
+      .button {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        margin: 1rem 0;
+        background-color: var(--primary);
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 5px;
+      }
+      .button:hover {
+        background-color: var(--gray);
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      ul li {
+        margin: 0.5rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>EasyCard Backend 🚀</h1>
+    </header>
+    <main>
+      <p>
+        EasyCardBackend is a backend service designed to support the
+        EasyCardGUIDesktop application. This API provides endpoints for user
+        authentication, credit card management, and card extraction
+        functionalities using artificial intelligence.
+      </p>
+      <a href="/api/docs" class="button">Go to API Docs 📄</a>
+      <h2>Features ✨</h2>
+      <ul>
+        <li>🔒 User Authentication</li>
+        <li>💳 Credit Card Management</li>
+        <li>📷 Card Extraction</li>
+      </ul>
+    </main>
+    <footer>
+      <p>Created by [Your Name] 😊</p>
+    </footer>
+  </body>
+</html>
