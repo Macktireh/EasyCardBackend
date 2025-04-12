@@ -58,14 +58,22 @@ class CardControllerTestCase(TestCase):
                 },
             ]
         }
-        self.card = cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_500)
-        cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_1000)
-        cardRepository.create(code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_2000)
+        self.card = cardRepository.create(
+            code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_500
+        )
+        cardRepository.create(
+            code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_1000
+        )
+        cardRepository.create(
+            code=str(randint(100000000000, 999999999999)), cardType=TypeEnum.CARD_2000
+        )
 
-        self.user1 = userRepository.create(name="Bob Johnson", email="bob.johnson@example.com", password="Test@123")
-        self.apiKey = self.client.post(self.loginEndpoint, json={"email": self.user1.email, "password": "Test@123"}).json[
-            "apiKey"
-        ]
+        self.user1 = userRepository.create(
+            name="Bob Johnson", email="bob.johnson@example.com", password="Test@123"
+        )
+        self.apiKey = self.client.post(
+            self.loginEndpoint, json={"email": self.user1.email, "password": "Test@123"}
+        ).json["apiKey"]
 
         size = (180, 650)
         list_text = ["Serial Number:", f"0000123456789            {self.data['code']}"]
@@ -114,7 +122,9 @@ class CardControllerTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
     def test_controller_card_create_multiple_success(self) -> None:
-        response = self.client.post(f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards)
+        response = self.client.post(
+            f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards
+        )
         self.assertEqual(response.status_code, HTTPStatus.CREATED)
 
     def test_controller_card_create_multiple_fail(self) -> None:
@@ -128,7 +138,9 @@ class CardControllerTestCase(TestCase):
 
         # case: card already exists
         self.cards["cards"][0]["code"] = self.card.code
-        response = self.client.post(f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards)
+        response = self.client.post(
+            f"{self.cardEndpoint}/all?apiKey={self.apiKey}", json=self.cards
+        )
         self.assertEqual(response.status_code, HTTPStatus.CONFLICT)
 
         # case: code is invalid
@@ -142,7 +154,9 @@ class CardControllerTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.BAD_REQUEST)
 
     def test_controller_card_get_success(self) -> None:
-        response = self.client.get(f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}")
+        response = self.client.get(
+            f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}"
+        )
         self.assertEqual(response.status_code, HTTPStatus.OK)
 
     def test_controller_card_get_fail(self) -> None:
@@ -159,13 +173,17 @@ class CardControllerTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_controller_card_update_success(self) -> None:
-        response = self.client.patch(f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}", json=self.data)
+        response = self.client.patch(
+            f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}", json=self.data
+        )
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertEqual(self.card.cardType, self.data["cardType"])
 
     def test_controller_card_update_fail(self) -> None:
         # case: invalid api key
-        response = self.client.patch(f"{self.cardEndpoint}/{self.card.publicId}?apiKey=invalid", json=self.data)
+        response = self.client.patch(
+            f"{self.cardEndpoint}/{self.card.publicId}?apiKey=invalid", json=self.data
+        )
         self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
 
         # case: no api key
@@ -173,11 +191,15 @@ class CardControllerTestCase(TestCase):
         self.assertEqual(response.status_code, HTTPStatus.UNAUTHORIZED)
 
         # case: card does not exist
-        response = self.client.patch(f"{self.cardEndpoint}/{400}?apiKey={self.apiKey}", json=self.data)
+        response = self.client.patch(
+            f"{self.cardEndpoint}/{400}?apiKey={self.apiKey}", json=self.data
+        )
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
 
     def test_controller_card_delete_success(self) -> None:
-        response = self.client.delete(f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}")
+        response = self.client.delete(
+            f"{self.cardEndpoint}/{self.card.publicId}?apiKey={self.apiKey}"
+        )
         self.assertEqual(response.status_code, HTTPStatus.NO_CONTENT)
 
     def test_controller_card_delete_fail(self) -> None:

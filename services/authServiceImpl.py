@@ -34,9 +34,13 @@ class AuthServiceImpl(AuthService):
             raise exceptions.Unauthorized("Email or password is incorrect")
 
         if not user.isActive:
-            raise exceptions.Unauthorized("Your account is not active. Please contact your administrator.")
+            raise exceptions.Unauthorized(
+                "Your account is not active. Please contact your administrator."
+            )
 
-        apiKey = TokenService.generate(TokenPayload(publicId=user.publicId, isActive=user.isActive))
+        apiKey = TokenService.generate(
+            TokenPayload(publicId=user.publicId, isActive=user.isActive)
+        )
 
         return dict(message="You have logged in successfully.", apiKey=apiKey)
 
@@ -45,7 +49,9 @@ class AuthServiceImpl(AuthService):
         user = TokenService.verify(apiKey)
         if not user:
             raise exceptions.Unauthorized("Invalid API Key")
-        apiKey = TokenService.generate(TokenPayload(publicId=user.publicId, isActive=user.isActive))
+        apiKey = TokenService.generate(
+            TokenPayload(publicId=user.publicId, isActive=user.isActive)
+        )
         return dict(apiKey=apiKey)
 
     @override

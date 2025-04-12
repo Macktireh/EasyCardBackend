@@ -60,7 +60,9 @@ class CreateAllCardController(Resource):
 @api.route("/extract")
 @inject
 class ExtractCardNumberController(Resource):
-    def __init__(self, cardNumberExtractorService: CardNumberExtractorService, *args, **kwargs) -> None:
+    def __init__(
+        self, cardNumberExtractorService: CardNumberExtractorService, *args, **kwargs
+    ) -> None:
         super().__init__(*args, **kwargs)
         self.cardNumberExtractorService = cardNumberExtractorService
 

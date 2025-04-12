@@ -43,4 +43,6 @@ app.cli.add_command(test)
 
 FlaskInjector(app=app, modules=[configure])
 
-app.jinja_env.globals.update({"url_for": app.url_for, "get_flashed_messages": get_flashed_messages})
+app.jinja_env.globals.update(
+    {"url_for": app.url_for, "get_flashed_messages": get_flashed_messages}
+)
